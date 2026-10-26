@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XooxleBilibili - فيديو</title>
+<style>
+body{margin:0;font-family:Arial;background:#f6f7f8}
+.top{background:#fff;padding:10px 15px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px #0001;position:sticky;top:0}
+.logo{color:#00a1d6;font-weight:900;font-size:22px}
+.logo span{color:#fb7299}
+.search{flex:1;display:flex;background:#f1f2f3;border-radius:20px;padding:6px 12px}
+.search input{border:0;background:0;flex:1;outline:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+.card{background:#fff;border-radius:12px;overflow:hidden}
+.thumb{width:100%;aspect-ratio:16/10;background:#ddd;object-fit:cover}
+.info{padding:8px}
+.t{font-size:13px;font-weight:bold;height:36px;overflow:hidden}
+.u{font-size:11px;color:#888;margin-top:4px}
+.btn{background:#00a1d6;color:#fff;border:0;padding:15px;width:100%;border-radius:10px;margin-top:15px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="logo">Xooxle<span>Bilibili</span></div>
+<div class="search"><input id="q" placeholder="بحث في XooxleBilibili"><span onclick="search()">🔍</span></div>
+</div>
+
+<div style="padding:10px">
+<iframe id="player" width="100%" height="220" style="border-radius:12px;border:0" src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe>
+<h3 id="vtitle" style="margin:10px 0 0">مرحبا في XooxleBilibili!</h3>
+<p style="color:#666;font-size:13px">اختر فيديو من الأسفل</p>
+<button class="btn" onclick="location.href='https://faraikcasa-create.github.io'">العودة لـ Xooxle الرئيسي</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+let videos=[
+{t:"تعلم HTML في 10 دقايق",u:"XooxleCasa",id:"kUMe5s-l3iE",img:"https://i.ytimg.com/vi/kUMe5s-l3iE/mqdefault.jpg"},
+{t:"مهرجان الأنمي - Bilibili",u:"AnimeFan",id:"dQw4w9WgXcQ",img:"https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg"},
+{t:"قرآن كريم - صوت هادئ",u:"Quran",id:"9vM4pB3-5pE",img:"https://i.ytimg.com/vi/9vM4pB3-5pE/mqdefault.jpg"},
+{t:"طبخ مغربي - كسكس",u:"Chhiwat",id:"2Vv-BfVoq4g",img:"https://i.ytimg.com/vi/2Vv-BfVoq4g/mqdefault.jpg"},
+{t:"برمجة مواقع",u:"CodeCasa",id:"UB1O30fR-4g",img:"https://i.ytimg.com/vi/UB1O30fR-4g/mqdefault.jpg"},
+{t:"Tom & Jerry",u:"Cartoon",id:"t0Q2otsqC4I",img:"https://i.ytimg.com/vi/t0Q2otsqC4I/mqdefault.jpg"}
+];
+function render(list){
+let h=""; list.forEach(v=>{
+h+=`<div class=card onclick="play('${v.id}','${v.t}')">
+<img class=thumb src="${v.img}">
+<div class=info><div class=t>${v.t}</div><div class=u>${v.u} • 10K مشاهدة</div></div>
+</div>`});
+document.getElementById('grid').innerHTML=h;
+}
+function play(id,title){
+document.getElementById('player').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+document.getElementById('vtitle').innerText=title;
+window.scrollTo(0,0);
+}
+function search(){
+let q=document.getElementById('q').value.toLowerCase();
+let f=videos.filter(v=>v.t.toLowerCase().includes(q));
+render(f.length?f:videos);
+}
+render(videos);
+</script>
+</body>
+</html>
